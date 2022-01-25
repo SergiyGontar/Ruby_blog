@@ -1,0 +1,45 @@
+<br>
+<div class="card">
+  <h2 class="card-header"><%= @post.title %></h2>
+  <div class="card-body">
+    <p class="card-text"><%= @post.body %></p>
+  
+    <%= link_to "Edit post", edit_post_path(@post), :class => 'btn btn-warning' %>
+	<br>
+	<hr>
+	<%= button_to "Delete this post", post_path(@post), method: :delete , class: "btn btn-danger"%>
+  </div>
+</div>
+<br>
+<hr>
+
+<!-- Here go's Show comments block-->
+<h2>All Comments</h2>
+<%= @post.comments.each do |comment| %>
+	<figure>
+	  <blockquote class="blockquote">
+	    <p><%= comment.body %></p>
+	  </blockquote>
+	  <figcaption class="blockquote-footer text-muted">
+	    <%= comment.username%> 
+	    <cite title="Source Title"><%= comment.created_at%></cite>
+	  </figcaption>
+	</figure> <hr>
+<% end %>
+<br>
+<br>
+<!-- Here go's Add comment block-->
+<h4>Create a comment</h4>
+<%= form_for([@post, @post.comments.build]) do |f| %>
+	<p>    
+		User name: <br>
+		<%= f.text_field(:username, {:class => 'form-control'}) %>
+	</p>
+	<p>    
+		Comment Text: <br>
+		<%= f.text_area(:body, {:class => 'form-control'}) %>
+	</p>
+	<p>    
+		<%= f.submit("Add comment", {:class => 'btn btn-success'}) %>
+	</p>
+<% end %>

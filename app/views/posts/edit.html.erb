@@ -1,0 +1,30 @@
+<h2>Editing post</h2>
+
+<!-- form_for - will generate all the fiels for our page -->
+<!-- url: posts_path - will check it on "posts" page -->
+<!-- do |f| - zminna cherez yaku vuvodutumytsya polya z form_for -->
+<!-- method: :patch - will show all info in our fields -->
+
+<%= form_for :post, url: post_path(@post), method: :patch do |f| %>
+	
+	<!-- cheking errors, and show them -->
+	<% if @post.errors.any? %>
+		<% @post.errors.full_messages.each do |msg| %>
+			<div class="alert alert-danger"><%= msg %></div>
+		<% end %>
+	<% end %>
+
+	<!-- create fields using f.+field_name using alias-->
+	<p>    
+		Name: <br>
+		<%= f.text_field(:title, {:class => 'form-control'}) %>
+	</p>
+	<p>    
+		Article Text: <br>
+		<%= f.text_area(:body, {:class => 'form-control'}) %>
+	</p>
+	<!-- create button using f.-->
+	<p>    
+		<%= f.submit({:class => 'btn btn-success'}) %>
+	</p>
+<% end %>
